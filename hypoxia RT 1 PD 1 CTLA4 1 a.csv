@@ -1,0 +1,5 @@
+RT Treatment Days,RT Dose (Gy),anti-PD-1 Treatment Days,anti-PD-1 Dose (mg),anti-CTLA-4 Treatment Days,anti-CTLA-4 Dose (mg),Mean TCP,Mean Time to reach Minimum Tumour Cell Count,List of TCPs,List of Times to Reach Minimum Tumour Cell Count
+[10],[15.44206112],[10],0.6,[10],0.2,0.1692559628346628,10.1,[0.50776789 0.         0.        ],[10.  10.  10.3]
+[10],[15.44206112],[10],0.6,[11],0.2,0.1692559628346628,10.1,[0.50776789 0.         0.        ],[10.  10.  10.3]
+[10],[15.44206112],[10],0.6,[12],0.2,0.1692559628346628,10.1,[0.50776789 0.         0.        ],[10.  10.  10.3]
+[10],[15.44206112],[10],0.6,[13],0.2,0.1692559628346628,10.1,[0.50776789 0.         0.        ],[10.  10.  10.3]
