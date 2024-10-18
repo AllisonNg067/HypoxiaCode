@@ -428,7 +428,9 @@ def radioimmuno_response_model(param, delta_t, free, t_f1, t_f2, D, t_rad, t_tre
             [im_death_N[:, j], p1_flag, p_1] = immune_death_dePillis(C_tot_N[:, j], (1-u)*Ta_tum[:, j], p, q, s, p1, p_1, mi, vol_flag, time_flag, time[j+1], t_treat_p1[ind_p1], delta_t, j) 
         immune_N = (im_death_N[:, j][0],)
         if C_tot_H[:,j] != 0:            
-            [im_death_H[:, j], p1_flag, p_1] = immune_death_dePillis(C_tot_H[:, j], u*Ta_tum[:, j], p, q, s, p1, p_1, mi, vol_flag, time_flag, time[j+1], t_treat_p1[ind_p1], delta_t, j) 
+            immune_H_res = immune_death_dePillis(C_tot_H[:, j], u*Ta_tum[:, j], p, q, s, p1, p_1, mi, vol_flag, time_flag, time[j+1], t_treat_p1[ind_p1], delta_t, j)
+            #print(immune_H)
+            im_death_H[:, j] = immune_H_res[0] 
         else:
             #[im_death_H[:, j], p1_flag, p_1] = immune_death_dePillis(C_tot[:, j], u*Ta_tum[:, j], p, q, s, p1, p_1, mi, vol_flag, time_flag, time[j+1], t_treat_p1[ind_p1], delta_t, j) 
             im_death_H[:, j] = 0
