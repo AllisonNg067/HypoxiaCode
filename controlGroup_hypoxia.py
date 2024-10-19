@@ -92,7 +92,14 @@ p1 = 0
 param_0[31] = 0.4
 param_0[32] = 0.3
 param_best_list = []
-for i in range(1, 17):
+data = pd.read_csv("../mouseData/White mice data - PD-1 10 CTLA.csv")
+t_treat_c4 = np.array([10])
+t_treat_p1 = np.array([10, 12, 14])
+for i in range(1,5):
+  param_0[37] = 0.2
+  param_0[24] = 0.2
+  p1 = 0.2
+  c4 = 0.2
   row = getCellCounts(data, i)
 
   #print(row)
@@ -127,7 +134,96 @@ for i in range(1, 17):
   plt.plot(times, fitVolumesCropped, '--', color ='red', label ="optimized Tumor Cell data")
   #plt.plot(times, C_tot*param_best[9], '--', color ='blue', label ="tumour cell count")
   #plt.plot(times, Ta_tum*param_best[23], '--', color ='green', label ="tumour cell count")
-  plt.title('Tumour Volume vs Time after RT')
+  plt.title('Tumour Volume vs Time after anti-PD-1 and anti-CTLA-4 Treatment')
+  plt.legend()
+
+data = pd.read_csv("../mouseData/White mice data - PD1-15 CTLA.csv")
+t_treat_c4 = np.array([15])
+t_treat_p1 = np.array([15, 17, 19])
+for i in range(1,9):
+  param_0[37] = 0.2
+  param_0[24] = 0.2
+  c4 = 0.2
+  p1 = 0.2
+  row = getCellCounts(data, i)
+
+  #print(row)
+  day_length = int(len(row)/3)
+  #t_f2 = row[day_length]
+  param_best, *_, MSEs, _ = dp.annealing_optimization(row, D, t_rad, c4, p1, t_treat_c4, t_treat_p1, param_0, param_id, T_0, dT, delta_t, free, t_f1, t_f2, nit_max, nit_T, LQL, activate_vd, use_Markov, day_length)
+  print(param_best)
+  param_best_list.append(param_best)
+  times = row[0:day_length]
+  #print(times)
+  T = row[day_length:2*day_length]
+  # print(T)
+  # print(fittedVolumes)
+  fittedVolumes, radius, radius_H, _, Time, C_tot, C, C_dam, C_tot_N, C_tot_H, C_N, C_H, C_dam_N, C_dam_H, A, Ta_tum, *_ = radioimmuno_response_model(param_best, delta_t, free, t_f1, t_f2, D, t_rad, t_treat_c4, t_treat_p1, LQL, activate_vd, use_Markov)
+  #crop fitted volumes so that its same size as array of data volumes
+  #print(Time)
+  indexes = [index for index, item in enumerate(Time) if item in times]
+  fitVolumesCropped = [fittedVolumes[0][index] for index in indexes]
+  #print(fitVolumesCropped)
+  C_tot = np.array([C_tot[0][index] for index in indexes]) * param_best[7]
+  Ta_tum = np.array([Ta_tum[0][index] for index in indexes]) * param_best[21]
+  plt.figure(figsize=(8,8))
+
+  # plt.subplot(2, 1, 1)  # 2 rows, 1 column, plot 1
+  # plt.plot(np.arange(0,nit_max*nit_T + 1), MSEs, 'o', label='Best MSE')
+  # plt.title('Plot 1 with 1 set of data')
+  # plt.legend()
+
+# Creating the second plot with two sets of data on the same plot
+  # plt.subplot(2, 1, 2)  # 2 rows, 1 column, plot 2
+  plt.plot(times, T, 'o', color ='red', label ="Tumor Cell data")
+  plt.plot(times, fitVolumesCropped, '--', color ='red', label ="optimized Tumor Cell data")
+  #plt.plot(times, C_tot*param_best[9], '--', color ='blue', label ="tumour cell count")
+  #plt.plot(times, Ta_tum*param_best[23], '--', color ='green', label ="tumour cell count")
+  plt.title('Tumour Volume vs Time after anti-PD-1 and anti-CTLA-4 Treatment')
+  plt.legend()
+
+
+data = pd.read_csv("../mouseData/White mice - no treatment.csv")
+c4 = 0
+p1 = 0
+for i in range(1, 17):
+  param_0[24] = 0
+  param_0[37] = 0
+  row = getCellCounts(data, i)
+
+  #print(row)
+  day_length = int(len(row)/3)
+  #t_f2 = row[day_length]
+  param_best, *_, MSEs, _ = dp.annealing_optimization(row, D, t_rad, c4, p1, t_treat_c4, t_treat_p1, param_0, param_id, T_0, dT, delta_t, free, t_f1, t_f2, nit_max, nit_T, LQL, activate_vd, use_Markov, day_length)
+  print(param_best)
+  param_best_list.append(param_best)
+  times = row[0:day_length]
+  #print(times)
+  T = row[day_length:2*day_length]
+  # print(T)
+  # print(fittedVolumes)
+  fittedVolumes, radius, radius_H, _, Time, C_tot, C, C_dam, C_tot_N, C_tot_H, C_N, C_H, C_dam_N, C_dam_H, A, Ta_tum, *_ = radioimmuno_response_model(param_best, delta_t, free, t_f1, t_f2, D, t_rad, t_treat_c4, t_treat_p1, LQL, activate_vd, use_Markov)
+  #crop fitted volumes so that its same size as array of data volumes
+  #print(Time)
+  indexes = [index for index, item in enumerate(Time) if item in times]
+  fitVolumesCropped = [fittedVolumes[0][index] for index in indexes]
+  #print(fitVolumesCropped)
+  C_tot = np.array([C_tot[0][index] for index in indexes]) * param_best[7]
+  Ta_tum = np.array([Ta_tum[0][index] for index in indexes]) * param_best[21]
+  plt.figure(figsize=(8,8))
+
+  # plt.subplot(2, 1, 1)  # 2 rows, 1 column, plot 1
+  # plt.plot(np.arange(0,nit_max*nit_T + 1), MSEs, 'o', label='Best MSE')
+  # plt.title('Plot 1 with 1 set of data')
+  # plt.legend()
+
+# Creating the second plot with two sets of data on the same plot
+  # plt.subplot(2, 1, 2)  # 2 rows, 1 column, plot 2
+  plt.plot(times, T, 'o', color ='red', label ="Tumor Cell data")
+  plt.plot(times, fitVolumesCropped, '--', color ='red', label ="optimized Tumor Cell data")
+  #plt.plot(times, C_tot*param_best[9], '--', color ='blue', label ="tumour cell count")
+  #plt.plot(times, Ta_tum*param_best[23], '--', color ='green', label ="tumour cell count")
+  plt.title('Tumour Volume vs Time')
   plt.legend()
 
   plt.tight_layout()
@@ -197,6 +293,7 @@ for i in range(1,7):
   plt.tight_layout()
   figure_name = "setonix hypoxia anti PD L1 15 tumor volume vs time " + str(i) + " .png"
   plt.savefig(figure_name)
+
 
 end_time = time.time()
 time_taken = end_time - start_time
