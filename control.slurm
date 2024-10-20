@@ -1,7 +1,7 @@
 #!/bin/bash -l
 #SBATCH --account=pawsey1077
 #SBATCH --job-name=hypoxiaControlParameterFitTest
-#SBATCH --nodes=4
+#SBATCH --nodes=6
 #SBATCH --tasks-per-node=10
 #SBATCH --cpus-per-task=10
 #SBATCH --time=24:00:00
