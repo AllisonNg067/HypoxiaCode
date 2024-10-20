@@ -81,8 +81,8 @@ def neighbor(param, param_id, T, T_0):
     #     print('var', var)
     #     print('new param', max(3e-8, param[25]))
     # Values constraints
-    param[1] = max(param[1], param[2])
-    param[2] = min(param[1], param[2])
+    param[1] = max(param[1], max(param[2], 0.1))
+    param[2] = min(param[1], max(param[2], 0.05))
     param[3] = min(1.1, max(param[3], 0.02))  # alpha_C
     param[4] = min(param[3] / 2, max(param[3] / 20, param[4]))  # beta_C
     param[5] = max(1, param[5])
