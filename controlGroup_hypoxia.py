@@ -136,11 +136,18 @@ for i in range(1,5):
   #plt.plot(times, Ta_tum*param_best[23], '--', color ='green', label ="tumour cell count")
   plt.title('Tumour Volume vs Time after anti-PD-1 and anti-CTLA-4 Treatment')
   plt.legend()
+  plt.tight_layout()
+  figure_name = "setonix hypoxia anti-CTLA-4 10 tumor volume vs time " + str(i) + " .png"
+  plt.savefig(figure_name)
+  plt.close()
+
+
 
 data = pd.read_csv("../mouseData/White mice data - PD1-15 CTLA.csv")
 t_treat_c4 = np.array([15])
 t_treat_p1 = np.array([15, 17, 19])
 for i in range(1,9):
+  t_f2 = 60
   param_0[37] = 0.2
   param_0[24] = 0.2
   c4 = 0.2
@@ -181,11 +188,16 @@ for i in range(1,9):
   #plt.plot(times, Ta_tum*param_best[23], '--', color ='green', label ="tumour cell count")
   plt.title('Tumour Volume vs Time after anti-PD-1 and anti-CTLA-4 Treatment')
   plt.legend()
+  plt.tight_layout()
+  figure_name = "setonix hypoxia anti-CTLA-4 15 tumor volume vs time " + str(i) + " .png"
+  plt.savefig(figure_name)
+  plt.close()
 
 
 data = pd.read_csv("../mouseData/White mice - no treatment.csv")
 c4 = 0
 p1 = 0
+t_f2 = 50
 for i in range(1, 17):
   param_0[24] = 0
   param_0[37] = 0
@@ -236,6 +248,7 @@ t_treat_p1 = np.array([10,12,14])
 p1 = 0.2
 for i in range(1,9):
   param_0[37] = 0.2
+  param_0[24] = 0
   row = getCellCounts(data, i)
 
   #print('orw', row)
@@ -268,6 +281,7 @@ data = pd.read_csv("../mouseData/White mice data - PD-1 15.csv")
 t_treat_p1 = np.array([15,17,19])
 for i in range(1,7):
   param_0[37] = 0.2
+  param_0[24] = 0
   row = getCellCounts(data, i)
 
   #print(row)
