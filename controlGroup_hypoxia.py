@@ -20,8 +20,8 @@ data = pd.read_csv("../mouseData/White mice - no treatment.csv")
 nit_max = 100
 nit_T = 100
 param = [500000.0,
-0.55,
-0.25,
+0.6,
+0.3,
 0.09607339148363986,
 0.04803669574181993,
 2,
@@ -90,7 +90,7 @@ t_treat_p1 = np.zeros(3)
 c4 = 0
 p1 = 0
 param_0[31] = 0.4
-param_0[32] = 0.3
+param_0[32] = 0.01
 param_best_list = []
 data = pd.read_csv("../mouseData/White mice data - PD-1 10 CTLA.csv")
 t_treat_c4 = np.array([10])
@@ -137,7 +137,7 @@ for i in range(1,5):
   plt.title('Tumour Volume vs Time after anti-PD-1 and anti-CTLA-4 Treatment')
   plt.legend()
   plt.tight_layout()
-  figure_name = "setonix hypoxia anti-CTLA-4 10 tumor volume vs time " + str(i) + " .png"
+  figure_name = "setonix hypoxia constrained growth anti-CTLA-4 10 tumor volume vs time " + str(i) + " .png"
   plt.savefig(figure_name)
   plt.close()
 
@@ -189,7 +189,7 @@ for i in range(1,9):
   plt.title('Tumour Volume vs Time after anti-PD-1 and anti-CTLA-4 Treatment')
   plt.legend()
   plt.tight_layout()
-  figure_name = "setonix hypoxia anti-CTLA-4 15 tumor volume vs time " + str(i) + " .png"
+  figure_name = "setonix hypoxia constrained growth anti-CTLA-4 15 tumor volume vs time " + str(i) + " .png"
   plt.savefig(figure_name)
   plt.close()
 
@@ -239,7 +239,7 @@ for i in range(1, 17):
   plt.legend()
 
   plt.tight_layout()
-  figure_name = "setonix hypoxia control tumor volume vs time " + str(i) + " .png"
+  figure_name = "setonix hypoxia constrained growth control tumor volume vs time " + str(i) + " .png"
   plt.savefig(figure_name)
   plt.close()
 
@@ -273,7 +273,7 @@ for i in range(1,9):
   plt.legend()
 
   plt.tight_layout()
-  figure_name = "setonix hypoxia anti PD L1 10 tumor volume vs time " + str(i) + " .png"
+  figure_name = "setonix hypoxia constrained growth anti PD L1 10 tumor volume vs time " + str(i) + " .png"
   plt.savefig(figure_name)
   plt.close()
 
@@ -305,7 +305,7 @@ for i in range(1,7):
   plt.legend()
 
   plt.tight_layout()
-  figure_name = "setonix hypoxia anti PD L1 15 tumor volume vs time " + str(i) + " .png"
+  figure_name = "setonix hypoxia constrained growth anti PD L1 15 tumor volume vs time " + str(i) + " .png"
   plt.savefig(figure_name)
 
 
@@ -314,9 +314,9 @@ time_taken = end_time - start_time
 dataFrame = pd.DataFrame(param_best_list[0:])
 std_devs = dataFrame.std()
 means = dataFrame.mean()
-dataFrame.to_csv("setonix hypoxia best parameters control.csv", index=False)
-std_devs.to_csv("setonix hypoxia errors control.csv", index=False)
-means.to_csv("setonix hypoxia means control.csv", index=False)
+dataFrame.to_csv("setonix hypoxia constrained growth best parameters control.csv", index=False)
+std_devs.to_csv("setonix hypoxia constrained growth errors control.csv", index=False)
+means.to_csv("setonix hypoxia constrained growth means control.csv", index=False)
 f = open("time taken RT.txt", "w")
 f.write("execution time " + str(time_taken))
 f.close()
