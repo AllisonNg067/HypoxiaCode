@@ -87,7 +87,7 @@ print(schedule_list)
 params = pd.read_csv('hypoxia_parameters.csv').values.tolist()
 initial_cell_count = 100000
 sample_size = len(params)
-sample_size = 3
+#sample_size = 3
 #print(params)
 # Now you have a list of parameters for each patient
 # You can now evaluate the treatment schedules in parallel
